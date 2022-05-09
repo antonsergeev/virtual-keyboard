@@ -23,6 +23,14 @@ body {
   text-align: center;
 }
 
+.language {
+  margin: 20px 500px;
+  color: firebrick;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
 .container {
   max-width: 1020px;
   min-width: 1020px;
