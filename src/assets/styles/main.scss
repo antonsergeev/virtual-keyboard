@@ -1,0 +1,19 @@
+// Рекомендуемый порядок импорта:
+// abstracts/
+// vendors/
+// base/
+// layout/
+// components/
+// pages/
+// themes/
+
+@import 'abstracts/variables';
+
+@import 'vendors/_normalize.css';
+
+@import 'base/base';
+
+@import 'layout/container';
+@import 'layout/header';
+@import 'layout/keyboard';
+@import 'layout/textarea';
