@@ -1,0 +1,34 @@
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: space-between;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: gray;
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    &__key {
+        width: 60px;
+        height: 60px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        background-color: whitesmoke;
+
+        &_stretched {
+            flex-grow: 1;
+        }
+
+        &.pressed {
+            background-color: rgb(197, 197, 231);
+        }
+    }
+}

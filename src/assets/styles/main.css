@@ -1,0 +1,75 @@
+@import 'vendors/_normalize.css';
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: antiquewhite;
+}
+
+.hidden {
+  display: none;
+}
+
+.title {
+  text-align: center;
+}
+
+.container {
+  max-width: 1020px;
+  min-width: 1020px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 20px 0;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: gray;
+}
+.keyboard__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px;
+}
+.keyboard__key {
+  width: 60px;
+  height: 60px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: whitesmoke;
+}
+.keyboard__key_stretched {
+  flex-grow: 1;
+}
+.keyboard__key.pressed {
+  background-color: rgb(197, 197, 231);
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}/*# sourceMappingURL=main.css.map */
