@@ -3,6 +3,7 @@ import createPageElement from './createPageElement.js';
 class Textarea {
   constructor(parentElement) {
     this.element = createPageElement(parentElement, 'textarea', 'textarea');
+    this.element.setAttribute('readonly', 'true');
   }
 
   add(str) {

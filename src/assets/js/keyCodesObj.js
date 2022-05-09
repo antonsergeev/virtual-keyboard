@@ -258,6 +258,7 @@ const keyCodesObj = {
   Backspace: {
     en: { label: 'Backspace' },
     ru: { label: 'Backspace' },
+    isFunctional: true,
   },
 };
 

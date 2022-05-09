@@ -97,11 +97,11 @@ class Keyboard {
     this.addHandlers();
   }
 
-  render(language) {
+  render() {
     keyCodesLayout.forEach((keysRow) => {
       const row = createPageElement(this.element, 'div', 'keyboard__row');
       keysRow.forEach((keyCode) => {
-        const keyObj = keyCodesObj[keyCode][language];
+        const keyObj = keyCodesObj[keyCode][this.language];
         let keyText;
         if (Object.prototype.hasOwnProperty.call(keyObj, 'label')) {
           keyText = keyObj.label;
@@ -119,9 +119,23 @@ class Keyboard {
 
   changeLanguage() {
     if (this.pressedKeys.has('AltLeft') && this.pressedKeys.has('ShiftLeft')) {
-      this.pressedKeys.delete('AltLeft');
-      this.pressedKeys.delete('ShiftLeft');
+      ['AltLeft', 'ShiftLeft'].forEach((keyCode) => {
+        this.element.querySelector(`.keyboard__key[data-key-code=${keyCode}]`);
+        this.pressedKeys.delete(keyCode);
+      });
+      this.language = this.language === 'en' ? 'ru' : 'en';
     }
+  }
+
+  wrightText() {
+    [...this.pressedKeys].forEach((pressedKey) => {
+      if (!Object.prototype.hasOwnProperty.call(keyCodesObj[pressedKey], 'isFunctional')) {
+        console.log(this.pressedKeys);
+        this.textarea.add(keyCodesObj[pressedKey][this.language].key);
+      } else if (pressedKey === 'Backspace') {
+        this.textarea.remove();
+      }
+    });
   }
 
   addHandlers() {
@@ -130,23 +144,28 @@ class Keyboard {
     window.addEventListener('click', this.handleClick);
   }
 
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${event.code}]`);
+    // event.preventDefault();
     if (keyElement && !keyElement.classList.contains('pressed')) {
       keyElement.classList.add('pressed');
       this.pressedKeys.add(event.code);
+      this.changeLanguage();
+      this.wrightText();
     }
   }
 
-  handleKeyUp(event) {
+  handleKeyUp = (event) => {
     const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${event.code}]`);
     if (keyElement && keyElement.classList.contains('pressed')) {
       keyElement.classList.remove('pressed');
       this.pressedKeys.delete(event.code);
+      this.changeLanguage();
+      this.wrightText();
     }
   }
 
-  handleClick(event) {
+  handleClick = (event) => {
     if (event.target.classList.contains('keyboard__key')) {
       event.target.classList.toggle('pressed');
       if (event.target.classList.contains('pressed')) {
@@ -154,6 +173,8 @@ class Keyboard {
       } else {
         this.pressedKeys.add(event.code);
       }
+      this.changeLanguage();
+      this.wrightText();
     }
   }
 }
