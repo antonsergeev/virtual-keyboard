@@ -9,11 +9,11 @@
 
 @import 'abstracts/variables';
 
-@import 'vendors/_normalize.css';
+@import 'vendors/normalize';
 
 @import 'base/base';
 
 @import 'layout/container';
 @import 'layout/header';
 @import 'layout/keyboard';
-// @import 'layout/textarea';
+@import 'layout/textarea';
