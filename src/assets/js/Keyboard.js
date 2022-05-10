@@ -170,11 +170,20 @@ class Keyboard {
     window.addEventListener('click', this.handleClick);
   }
 
+  removeHandlers() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
+    window.removeEventListener('click', this.handleClick);
+  }
+
   handleKeyDown = (event) => {
     const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${event.code}]`);
-    // event.preventDefault();
+    this.textarea.element.focus();
     if (keyElement && !keyElement.classList.contains('pressed')) {
       keyElement.classList.add('pressed');
+      if (['Tab', 'Enter', 'Space'].includes(event.code)) {
+        event.preventDefault();
+      }
       if (event.code === 'CapsLock' && this.pressedKeys.has(event.code)) {
         this.pressedKeys.delete(event.code);
       } else {
@@ -200,13 +209,24 @@ class Keyboard {
     if (event.target.classList.contains('keyboard__key')) {
       if (event.target.classList.contains('pressed')) {
         event.target.classList.remove('pressed');
-        this.pressedKeys.delete(event.code);
+        this.pressedKeys.delete(event.target.dataset.keyCode);
       } else {
         event.target.classList.add('pressed');
-        this.pressedKeys.add(event.code);
+        this.pressedKeys.add(event.target.dataset.keyCode);
       }
       this.changeLanguage();
       this.wrightText();
+      setTimeout(() => {
+        if (!Object.prototype.hasOwnProperty.call(keyCodesObj[event.target.dataset.keyCode], 'isFunctional')) {
+          if (event.target.classList.contains('pressed')) {
+            event.target.classList.remove('pressed');
+            this.pressedKeys.delete(event.target.dataset.keyCode);
+          } else {
+            event.target.classList.add('pressed');
+            this.pressedKeys.add(event.target.dataset.keyCode);
+          }
+        }
+      }, 100);
     }
   };
 }
