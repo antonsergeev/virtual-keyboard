@@ -12,9 +12,14 @@ function createPage() {
   const mainContainer = createPageElement(main, 'div', 'container');
   const textarea = new Textarea(mainContainer);
   const keyboard = new Keyboard(mainContainer, textarea, 'en');
+  const languageElement = createPageElement(mainContainer, 'p', 'language', keyboard.language);
 
   const footer = createPageElement(document.body, 'footer');
   createPageElement(footer, 'div', 'container');
+
+  setInterval(() => {
+    languageElement.textContent = keyboard.language;
+  }, 250);
 }
 
 export default createPage;
