@@ -148,7 +148,6 @@ class Keyboard {
 
   wrightText() {
     [...this.pressedKeys].forEach((pressedKey, i, pressedKeys) => {
-      // console.log(this, pressedKeys);
       if (!Object.prototype.hasOwnProperty.call(keyCodesObj[pressedKey], 'isFunctional')) {
         let key;
         if ((pressedKeys.includes('ShiftLeft') || pressedKeys.includes('ShiftLeft')) && !pressedKeys.includes('CapsLock')) {
