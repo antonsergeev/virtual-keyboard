@@ -130,7 +130,6 @@ class Keyboard {
   wrightText() {
     [...this.pressedKeys].forEach((pressedKey) => {
       if (!Object.prototype.hasOwnProperty.call(keyCodesObj[pressedKey], 'isFunctional')) {
-        console.log(this.pressedKeys);
         this.textarea.add(keyCodesObj[pressedKey][this.language].key);
       } else if (pressedKey === 'Backspace') {
         this.textarea.remove();
@@ -153,7 +152,7 @@ class Keyboard {
       this.changeLanguage();
       this.wrightText();
     }
-  }
+  };
 
   handleKeyUp = (event) => {
     const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${event.code}]`);
@@ -163,7 +162,7 @@ class Keyboard {
       this.changeLanguage();
       this.wrightText();
     }
-  }
+  };
 
   handleClick = (event) => {
     if (event.target.classList.contains('keyboard__key')) {
@@ -176,7 +175,7 @@ class Keyboard {
       this.changeLanguage();
       this.wrightText();
     }
-  }
+  };
 }
 
 export default Keyboard;
