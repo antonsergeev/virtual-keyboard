@@ -66,12 +66,21 @@ body {
   border: 1px solid transparent;
   border-radius: 5px;
   background-color: whitesmoke;
+  cursor: pointer;
 }
 .keyboard__key_stretched {
   flex-grow: 1;
 }
+.keyboard__key:hover {
+  background-color: rgb(250, 228, 228);
+}
 .keyboard__key.pressed {
   background-color: rgb(197, 197, 231);
+}
+.keyboard__key.caps-lock-active {
+  font-weight: bold;
+  color: firebrick;
+  text-decoration: underline;
 }
 .keyboard__key-shift {
   position: absolute;
