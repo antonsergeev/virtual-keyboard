@@ -164,6 +164,16 @@ class Keyboard {
     });
   }
 
+  clearPressedKeys() {
+    [...this.pressedKeys].forEach((pressedKey) => {
+      const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${pressedKey}]`);
+      keyElement.classList.remove('pressed');
+      if (pressedKey !== 'CapsLock') {
+        this.pressedKeys.delete(pressedKey);
+      }
+    });
+  }
+
   addHandlers() {
     window.addEventListener('keydown', this.handleKeyDown);
     window.addEventListener('keyup', this.handleKeyUp);
@@ -186,6 +196,10 @@ class Keyboard {
       }
       if (event.code === 'CapsLock' && this.pressedKeys.has(event.code)) {
         this.pressedKeys.delete(event.code);
+        keyElement.classList.remove('caps-lock-active');
+      } else if (event.code === 'CapsLock' && !this.pressedKeys.has(event.code)) {
+        this.pressedKeys.add(event.code);
+        keyElement.classList.add('caps-lock-active');
       } else {
         this.pressedKeys.add(event.code);
       }
