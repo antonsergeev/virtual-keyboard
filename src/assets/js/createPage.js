@@ -11,7 +11,7 @@ function createPage() {
   const main = createPageElement(document.body, 'main');
   const mainContainer = createPageElement(main, 'div', 'container');
   const textarea = new Textarea(mainContainer);
-  const keyboard = new Keyboard(mainContainer, textarea, 'en');
+  const keyboard = new Keyboard(mainContainer, textarea);
   const languageElement = createPageElement(mainContainer, 'p', 'language', keyboard.language);
 
   const footer = createPageElement(document.body, 'footer');
