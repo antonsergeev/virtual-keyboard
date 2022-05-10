@@ -60,6 +60,7 @@ body {
   gap: 10px;
 }
 .keyboard__key {
+  position: relative;
   width: 60px;
   height: 60px;
   border: 1px solid transparent;
@@ -71,6 +72,14 @@ body {
 }
 .keyboard__key.pressed {
   background-color: rgb(197, 197, 231);
+}
+.keyboard__key-shift {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
 }
 
 .textarea {

@@ -123,6 +123,9 @@ class Keyboard {
           keyText = keyObj.key.toUpperCase();
         }
         const keyElement = createPageElement(row, 'button', 'keyboard__key', keyText);
+        if (!Object.prototype.hasOwnProperty.call(keyObj, 'label') && keyObj.key.toUpperCase() !== keyObj.keyShift) {
+          createPageElement(keyElement, 'span', 'keyboard__key-shift', keyObj.keyShift);
+        }
         keyElement.dataset.keyCode = keyCode;
         if (stretchedKeys.includes(keyCode)) {
           keyElement.classList.add('keyboard__key_stretched');
