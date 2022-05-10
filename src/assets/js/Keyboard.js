@@ -88,13 +88,26 @@ const stretchedKeys = [
 ];
 
 class Keyboard {
-  constructor(parentElement, textarea, language = 'en') {
+  constructor(parentElement, textarea) {
     this.element = createPageElement(parentElement, 'div', 'keyboard');
-    this.language = language;
+    this.getLanguageFromLocalStorage();
     this.textarea = textarea;
     this.pressedKeys = new Set();
-    this.render(language);
+    this.render();
     this.addHandlers();
+  }
+
+  getLanguageFromLocalStorage() {
+    let language = localStorage.getItem('antonsergeev-virtual-keyboard-language');
+    if (!language) {
+      language = 'en';
+    }
+    this.language = language;
+    return language;
+  }
+
+  saveLanguageToLocalStorage() {
+    localStorage.setItem('antonsergeev-virtual-keyboard-language', this.language);
   }
 
   render() {
@@ -124,13 +137,22 @@ class Keyboard {
         this.pressedKeys.delete(keyCode);
       });
       this.language = this.language === 'en' ? 'ru' : 'en';
+      this.saveLanguageToLocalStorage();
     }
   }
 
   wrightText() {
-    [...this.pressedKeys].forEach((pressedKey) => {
+    [...this.pressedKeys].forEach((pressedKey, i, pressedKeys) => {
       if (!Object.prototype.hasOwnProperty.call(keyCodesObj[pressedKey], 'isFunctional')) {
-        this.textarea.add(keyCodesObj[pressedKey][this.language].key);
+        let key;
+        if ((pressedKeys.includes('ShiftLeft') || pressedKeys.includes('ShiftLeft')) && !pressedKeys.includes('CapsLock')) {
+          key = keyCodesObj[pressedKey][this.language].keyShift;
+        } else if (!(pressedKeys.includes('ShiftLeft') || pressedKeys.includes('ShiftLeft')) && pressedKeys.includes('CapsLock')) {
+          key = keyCodesObj[pressedKey][this.language].keyShift;
+        } else {
+          key = keyCodesObj[pressedKey][this.language].key;
+        }
+        this.textarea.add(key);
       } else if (pressedKey === 'Backspace') {
         this.textarea.remove();
       }
@@ -148,7 +170,11 @@ class Keyboard {
     // event.preventDefault();
     if (keyElement && !keyElement.classList.contains('pressed')) {
       keyElement.classList.add('pressed');
-      this.pressedKeys.add(event.code);
+      if (event.code === 'CapsLock' && this.pressedKeys.has(event.code)) {
+        this.pressedKeys.delete(event.code);
+      } else {
+        this.pressedKeys.add(event.code);
+      }
       this.changeLanguage();
       this.wrightText();
     }
@@ -158,18 +184,20 @@ class Keyboard {
     const keyElement = this.element.querySelector(`.keyboard__key[data-key-code=${event.code}]`);
     if (keyElement && keyElement.classList.contains('pressed')) {
       keyElement.classList.remove('pressed');
-      this.pressedKeys.delete(event.code);
+      if (event.code !== 'CapsLock') {
+        this.pressedKeys.delete(event.code);
+      }
       this.changeLanguage();
-      this.wrightText();
     }
   };
 
   handleClick = (event) => {
     if (event.target.classList.contains('keyboard__key')) {
-      event.target.classList.toggle('pressed');
       if (event.target.classList.contains('pressed')) {
+        event.target.classList.remove('pressed');
         this.pressedKeys.delete(event.code);
       } else {
+        event.target.classList.add('pressed');
         this.pressedKeys.add(event.code);
       }
       this.changeLanguage();
