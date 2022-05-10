@@ -1,0 +1,56 @@
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: space-between;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: gray;
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    &__key {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        background-color: whitesmoke;
+        cursor: pointer;
+
+        &_stretched {
+            flex-grow: 1;
+        }
+
+        &:hover {
+            background-color: rgb(250, 228, 228);
+        }
+
+        &.pressed {
+            border-radius: 20px;
+            background-color: rgb(197, 197, 231);
+        }
+
+        &.caps-lock-active {
+            font-weight: bold;
+            color: firebrick;
+            text-decoration: underline;
+        }
+    }
+
+    &__key-shift {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+    }
+}
