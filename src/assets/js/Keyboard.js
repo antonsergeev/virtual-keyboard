@@ -111,6 +111,7 @@ class Keyboard {
   }
 
   render() {
+    this.element.innerHTML = '';
     keyCodesLayout.forEach((keysRow) => {
       const row = createPageElement(this.element, 'div', 'keyboard__row');
       keysRow.forEach((keyCode) => {
@@ -137,6 +138,7 @@ class Keyboard {
         this.pressedKeys.delete(keyCode);
       });
       this.language = this.language === 'en' ? 'ru' : 'en';
+      this.render();
       this.saveLanguageToLocalStorage();
     }
   }
